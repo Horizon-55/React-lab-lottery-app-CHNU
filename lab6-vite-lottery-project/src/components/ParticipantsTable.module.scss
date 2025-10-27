@@ -1,0 +1,30 @@
+@import '../styles/variables';
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.sortButton {
+  background: none;
+  border: none;
+  padding: 0 0.25rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  color: $text-muted;
+  transition: $transition-fast;
+
+  &:hover {
+    color: $primary-color;
+  }
+
+  &.active {
+    color: $primary-color;
+  }
+}
+
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+

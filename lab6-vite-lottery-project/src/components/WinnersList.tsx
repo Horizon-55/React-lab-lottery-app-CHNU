@@ -1,4 +1,6 @@
 import type { Participant } from '../types/Participant';
+import { WinnerItem } from './WinnerItem';
+import { Button } from './ui/Button';
 
 interface WinnersListProps {
   winners: Participant[];
@@ -26,33 +28,25 @@ export const WinnersList = ({
             value={winners.map(w => w.name).join(', ')}
             readOnly
           />
-          <button
-            className="btn btn-info text-white text-nowrap"
+          <Button
+            variant="info"
             onClick={onSelectWinner}
             disabled={isButtonDisabled}
+            className="text-white text-nowrap"
           >
             New winner
-          </button>
+          </Button>
         </div>
         
         {winners.length > 0 && (
           <div className="winners-list">
             {winners.map((winner, index) => (
-              <div 
-                key={winner.id} 
-                className="d-flex align-items-center justify-content-between mb-2 p-2 border rounded bg-light"
-              >
-                <span>
-                  <strong>{index + 1}.</strong> {winner.name}
-                </span>
-                <button
-                  className="btn btn-sm btn-danger"
-                  onClick={() => onRemoveWinner(winner.id)}
-                  aria-label="Remove winner"
-                >
-                  ×
-                </button>
-              </div>
+              <WinnerItem
+                key={winner.id}
+                winner={winner}
+                index={index}
+                onRemove={onRemoveWinner}
+              />
             ))}
           </div>
         )}

@@ -1,0 +1,50 @@
+@import '../styles/variables';
+@import '../styles/mixins';
+
+.winnerItem {
+  @include flex-between;
+  margin-bottom: $spacing-sm;
+  padding: $spacing-sm;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  background-color: #f8f9fa;
+  transition: $transition-fast;
+
+  &:hover {
+    background-color: #e9ecef;
+  }
+}
+
+.winnerInfo {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.winnerNumber {
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.winnerName {
+  color: $text-dark;
+}
+
+.removeButton {
+  background: $danger-color;
+  border: none;
+  color: $white;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  @include flex-center;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: $transition-fast;
+
+  &:hover {
+    background: $danger-hover;
+  }
+}
+

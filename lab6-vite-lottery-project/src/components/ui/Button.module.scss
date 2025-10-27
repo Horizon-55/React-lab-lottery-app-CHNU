@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.button {
+  border-radius: $border-radius-sm;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: $transition-fast;
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+.primary {
+  @include button-variant($primary-color, $primary-hover);
+}
+
+.danger {
+  @include button-variant($danger-color, $danger-hover);
+}
+
+.info {
+  @include button-variant($primary-color, $primary-hover);
+}
+
+.small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.fullWidth {
+  width: 100%;
+}
+

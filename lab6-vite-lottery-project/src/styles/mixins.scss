@@ -1,0 +1,49 @@
+// Flexbox центрування
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Кнопки
+@mixin button-variant($bg-color, $hover-color) {
+  background-color: $bg-color;
+  border-color: $bg-color;
+  color: $white;
+  transition: $transition-fast;
+
+  &:hover:not(:disabled) {
+    background-color: $hover-color;
+    border-color: $hover-color;
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+// Input стани
+@mixin input-state($color) {
+  border-color: $color;
+  
+  &:focus {
+    border-color: $color;
+    box-shadow: 0 0 0 0.2rem rgba($color, 0.25);
+  }
+}
+
+// Карточки
+@mixin card {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  padding: $spacing-lg;
+}
+

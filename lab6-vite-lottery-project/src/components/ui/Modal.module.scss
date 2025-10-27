@@ -1,0 +1,90 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  @include flex-center;
+  z-index: 1050;
+  animation: fadeIn 0.15s ease-in;
+}
+
+.modal {
+  background: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow-lg;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease-out;
+}
+
+.header {
+  @include flex-between;
+  padding: $spacing-lg;
+  border-bottom: 1px solid $border-color;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: $text-muted;
+  cursor: pointer;
+  padding: 0;
+  width: 2rem;
+  height: 2rem;
+  @include flex-center;
+  border-radius: $border-radius-sm;
+  transition: $transition-fast;
+
+  &:hover {
+    background-color: $light-bg;
+    color: $text-dark;
+  }
+}
+
+.body {
+  padding: $spacing-lg;
+}
+
+.footer {
+  padding: $spacing-lg;
+  border-top: 1px solid $border-color;
+  @include flex-between;
+  gap: $spacing-md;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+

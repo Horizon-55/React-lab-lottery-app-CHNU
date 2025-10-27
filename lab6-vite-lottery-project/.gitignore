@@ -25,3 +25,5 @@ dist-ssr
 #ignore the some folders x files in the project
 ./images/*
 ./files/*
+.cursor/plans/*
+./tasks files/*
