@@ -4,9 +4,10 @@ import { validateEmail, validatePhone, validateName, validateDate, formatPhoneNu
 
 interface RegisterFormProps {
   onAddParticipant: (participant: Omit<Participant, 'id'>) => void;
+  existingParticipants: Participant[];
 }
 
-export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
+export const RegisterForm = ({ onAddParticipant, existingParticipants }: RegisterFormProps) => {
   const [formData, setFormData] = useState({
     name: '',
     dateOfBirth: '',
@@ -21,8 +22,18 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
     switch (name) {
       case 'name':
         return validateName(value);
-      case 'email':
-        return validateEmail(value);
+      case 'email': {
+        // Перевіряємо формат email
+        const emailError = validateEmail(value);
+        if (emailError) return emailError;
+        
+        // Перевіряємо унікальність
+        const emailExists = existingParticipants.some(p => p.email === value);
+        if (emailExists) {
+          return 'This email is already taken.';
+        }
+        return undefined;
+      }
       case 'phone':
         return validatePhone(value);
       case 'dateOfBirth':
@@ -76,7 +87,7 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
     // Валідація всіх полів
     const newErrors: FormErrors = {
       name: validateName(formData.name),
-      email: validateEmail(formData.email),
+      email: validateField('email', formData.email),
       phone: validatePhone(formData.phone),
       dateOfBirth: validateDate(formData.dateOfBirth)
     };
@@ -107,6 +118,17 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
     }
   };
 
+  // Обробка Enter для submit
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const form = e.currentTarget.form;
+      if (form) {
+        form.requestSubmit();
+      }
+    }
+  };
+
   const getInputClass = (fieldName: keyof FormErrors) => {
     const baseClass = 'form-control';
     if (!touched[fieldName]) return baseClass;
@@ -116,7 +138,7 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
   };
 
   const isFieldValid = (fieldName: keyof FormErrors) => {
-    return touched[fieldName] && !errors[fieldName] && formData[fieldName];
+    return !!(touched[fieldName] && !errors[fieldName] && formData[fieldName]);
   };
 
   return (
@@ -137,6 +159,7 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
                 value={formData.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
                 placeholder="Enter user name"
               />
               {isFieldValid('name') && (
@@ -160,6 +183,7 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
               value={formData.dateOfBirth}
               onChange={handleChange}
               onBlur={handleBlur}
+              onKeyDown={handleKeyDown}
               placeholder="mm/dd/yyyy"
             />
             {touched.dateOfBirth && errors.dateOfBirth && (
@@ -178,6 +202,7 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
                 placeholder="Enter email"
               />
               {isFieldValid('email') && (
@@ -202,6 +227,7 @@ export const RegisterForm = ({ onAddParticipant }: RegisterFormProps) => {
                 value={formData.phone}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
                 placeholder="Enter Phone number"
               />
               {isFieldValid('phone') && (

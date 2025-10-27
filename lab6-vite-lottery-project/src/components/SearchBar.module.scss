@@ -1,0 +1,25 @@
+@import '../styles/variables';
+
+.searchBar {
+  margin-bottom: $spacing-lg;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-sm;
+  transition: $transition-fast;
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
